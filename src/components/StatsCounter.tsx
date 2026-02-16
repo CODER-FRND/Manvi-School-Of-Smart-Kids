@@ -1,14 +1,14 @@
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const stats = [
-  { value: 15000, label: "Students Enrolled", suffix: "+" },
-  { value: 98, label: "Placement Rate", suffix: "%" },
-  { value: 250, label: "Research Labs", suffix: "+" },
-  { value: 45, label: "Countries", suffix: "+" },
+  { value: 500, label: "Happy Students", suffix: "+" },
+  { value: 95, label: "Result Rate", suffix: "%" },
+  { value: 25, label: "Expert Teachers", suffix: "+" },
+  { value: 10, label: "Years of Excellence", suffix: "+" },
 ];
 
-function Counter({ target, suffix }: { target: number; suffix: string }) {
+function Counter({ target, suffix, label }: { target: number; suffix: string; label: string }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
@@ -37,12 +37,16 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
   }, [inView, target]);
 
   return (
-    <div ref={ref} className="text-center">
-      <div className="font-display text-5xl md:text-6xl font-black text-primary text-glow-cyan">
+    <motion.div 
+      ref={ref} 
+      className="text-center group"
+      whileHover={{ scale: 1.05 }}
+    >
+      <div className="font-display text-5xl md:text-6xl font-black text-primary text-glow-cyan group-hover:drop-shadow-[0_0_20px_hsl(185_100%_47%/0.6)] transition-all">
         {count.toLocaleString()}{suffix}
       </div>
-      <div className="font-heading text-lg text-muted-foreground mt-2 tracking-wider uppercase">{stats.find(s => s.value === target)?.label}</div>
-    </div>
+      <div className="font-heading text-lg text-muted-foreground mt-2 tracking-wider uppercase">{label}</div>
+    </motion.div>
   );
 }
 
@@ -53,7 +57,7 @@ const StatsCounter = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
           {stats.map((stat) => (
-            <Counter key={stat.label} target={stat.value} suffix={stat.suffix} />
+            <Counter key={stat.label} target={stat.value} suffix={stat.suffix} label={stat.label} />
           ))}
         </div>
       </div>

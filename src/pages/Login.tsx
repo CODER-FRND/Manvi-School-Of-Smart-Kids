@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Zap, Eye, EyeOff, ArrowLeft, Loader2 } from "lucide-react";
+import { GraduationCap, Eye, EyeOff, ArrowLeft, Loader2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -52,8 +52,12 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden scanline">
-      {/* Background effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
+      {/* Grid texture */}
+      <div className="absolute inset-0 opacity-5" style={{
+        backgroundImage: `linear-gradient(hsl(var(--primary) / 0.4) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary) / 0.4) 1px, transparent 1px)`,
+        backgroundSize: '40px 40px',
+      }} />
       {[...Array(15)].map((_, i) => (
         <motion.div
           key={i}
@@ -82,13 +86,13 @@ const Login = () => {
 
         <div className="bg-gradient-card cyber-border rounded-sm p-8">
           <div className="flex items-center gap-3 mb-8">
-            <Zap className="h-8 w-8 text-primary" />
+            <GraduationCap className="h-8 w-8 text-primary" />
             <div>
-              <h1 className="font-display text-2xl font-bold tracking-wider text-foreground">
-                {isSignUp ? "JOIN NEXUS" : "ACCESS NEXUS"}
+              <h1 className="font-display text-xl font-bold tracking-wider text-foreground">
+                {isSignUp ? "JOIN MANVI" : "STUDENT PORTAL"}
               </h1>
               <p className="font-body text-xs text-muted-foreground">
-                {isSignUp ? "Create your student portal account" : "Enter your credentials to continue"}
+                {isSignUp ? "Create your student account" : "Manvi School of Smart Kids"}
               </p>
             </div>
           </div>
@@ -120,7 +124,7 @@ const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full bg-muted/50 cyber-border rounded-sm px-4 py-3 text-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/60 transition-colors"
-                placeholder="student@nexusedu.com"
+                placeholder="student@manvischool.com"
               />
             </div>
 

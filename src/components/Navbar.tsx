@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X, GraduationCap } from "lucide-react";
 
 const navItems = [
   { label: "Home", path: "/" },
   { label: "Programs", path: "/#programs" },
+  { label: "Faculty", path: "/faculty" },
   { label: "Events", path: "/#events" },
   { label: "About", path: "/#about" },
 ];
@@ -33,9 +34,9 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         <Link to="/" className="flex items-center gap-2 group">
-          <Zap className="h-8 w-8 text-primary transition-all group-hover:drop-shadow-[0_0_12px_hsl(185_100%_47%/0.8)]" />
-          <span className="font-display text-xl font-bold tracking-widest text-foreground">
-            NEXUS<span className="text-primary">EDU</span>
+          <GraduationCap className="h-8 w-8 text-primary transition-all group-hover:drop-shadow-[0_0_12px_hsl(185_100%_47%/0.8)]" />
+          <span className="font-display text-lg font-bold tracking-widest text-foreground">
+            MANVI<span className="text-primary"> SMART</span>
           </span>
         </Link>
 

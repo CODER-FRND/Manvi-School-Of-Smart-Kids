@@ -1,0 +1,4 @@
+project_id = "syfrfwqzgwfpxibluufp"
+
+[functions.school-chatbot]
+verify_jwt = false

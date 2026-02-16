@@ -4,48 +4,48 @@ import { Calendar, Trophy, BookOpen, Megaphone, Star, Flame } from "lucide-react
 const actions = [
   {
     icon: Trophy,
-    title: "Robotics Championship Win",
-    desc: "Our team secured 1st place at the International Robotics Olympiad 2026.",
+    title: "Annual Sports Day Winners!",
+    desc: "Students bagged 15 gold medals at the Inter-School Sports Meet 2026.",
     tag: "Achievement",
     time: "2 hours ago",
     color: "primary",
   },
   {
     icon: Calendar,
-    title: "Quantum Workshop - Feb 28",
-    desc: "Hands-on quantum computing workshop with industry leaders from Q-Corp.",
+    title: "Science Fair — March 5",
+    desc: "Students from Class 3–8 showcase innovative science projects & models.",
     tag: "Event",
     time: "5 hours ago",
     color: "secondary",
   },
   {
     icon: BookOpen,
-    title: "New AI Ethics Curriculum",
-    desc: "Launching a groundbreaking course on responsible AI development.",
+    title: "Smart Learning Lab Launched",
+    desc: "New interactive digital classrooms with smart boards & tablets for all students.",
     tag: "Academic",
     time: "1 day ago",
     color: "accent",
   },
   {
     icon: Megaphone,
-    title: "Campus Expansion Phase III",
-    desc: "New state-of-the-art neural science wing opening this semester.",
-    tag: "News",
+    title: "Parent-Teacher Meeting",
+    desc: "PTM scheduled for all classes on March 15. Check portal for timings.",
+    tag: "Notice",
     time: "2 days ago",
     color: "primary",
   },
   {
     icon: Star,
-    title: "Student Innovation Award",
-    desc: "Maya Chen wins the Global Innovation Award for her biotech research.",
+    title: "Art Competition Winners",
+    desc: "5 students won state-level prizes in the National Drawing Competition.",
     tag: "Achievement",
     time: "3 days ago",
     color: "secondary",
   },
   {
     icon: Flame,
-    title: "Hackathon 2026 Registration",
-    desc: "48-hour coding marathon. Build the future. Prizes worth $50,000.",
+    title: "Summer Camp Registration Open",
+    desc: "Coding, robotics, art & sports summer camp. Limited seats available!",
     tag: "Event",
     time: "5 days ago",
     color: "accent",
@@ -68,14 +68,13 @@ const RecentActions = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="font-display text-sm tracking-[0.3em] text-secondary uppercase">Feed</span>
+          <span className="font-display text-sm tracking-[0.3em] text-secondary uppercase">What's Happening</span>
           <h2 className="font-display text-4xl md:text-5xl font-bold mt-4 text-foreground">
-            RECENT <span className="text-secondary text-glow-magenta">ACTIONS</span>
+            SCHOOL <span className="text-secondary text-glow-magenta">BUZZ</span>
           </h2>
           <div className="h-[1px] w-32 mx-auto mt-6 bg-gradient-to-r from-transparent via-secondary to-transparent" />
         </motion.div>
 
-        {/* Netflix-style horizontal scroll on mobile, grid on desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {actions.map((action, i) => {
             const Icon = action.icon;
@@ -87,9 +86,10 @@ const RecentActions = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                whileHover={{ scale: 1.02 }}
-                className="bg-gradient-card cyber-border rounded-sm p-6 group cursor-pointer hover:border-primary/50 transition-all"
+                whileHover={{ scale: 1.02, y: -3 }}
+                className="bg-gradient-card cyber-border rounded-sm p-6 group cursor-pointer hover:border-primary/50 transition-all relative overflow-hidden"
               >
+                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="flex items-start justify-between mb-4">
                   <div className={`p-2 rounded-sm ${tc}`}>
                     <Icon className="h-5 w-5" />

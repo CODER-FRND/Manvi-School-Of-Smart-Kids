@@ -53,14 +53,14 @@ const actions = [
 ];
 
 const tagColors = {
-  primary: "bg-primary/10 text-primary cyber-border",
-  secondary: "bg-secondary/10 text-secondary cyber-border-magenta",
-  accent: "bg-accent/10 text-accent",
+  primary: "bg-primary/10 text-primary border border-primary/20",
+  secondary: "bg-secondary/10 text-secondary border border-secondary/20",
+  accent: "bg-accent/10 text-accent border border-accent/20",
 };
 
 const RecentActions = () => {
   return (
-    <section id="events" className="py-24 relative">
+    <section id="events" className="py-24 relative bg-muted/30">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -68,11 +68,11 @@ const RecentActions = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="font-display text-sm tracking-[0.3em] text-secondary uppercase">What's Happening</span>
+          <span className="font-display text-sm tracking-wider text-secondary font-semibold">What's Happening</span>
           <h2 className="font-display text-4xl md:text-5xl font-bold mt-4 text-foreground">
-            SCHOOL <span className="text-secondary text-glow-magenta">BUZZ</span>
+            School <span className="text-secondary">Buzz</span> 🎉
           </h2>
-          <div className="h-[1px] w-32 mx-auto mt-6 bg-gradient-to-r from-transparent via-secondary to-transparent" />
+          <div className="h-[3px] w-32 mx-auto mt-6 bg-gradient-to-r from-secondary to-accent rounded-full" />
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -82,16 +82,15 @@ const RecentActions = () => {
             return (
               <motion.div
                 key={action.title}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
                 whileHover={{ scale: 1.02, y: -3 }}
-                className="bg-gradient-card cyber-border rounded-sm p-6 group cursor-pointer hover:border-primary/50 transition-all relative overflow-hidden"
+                className="school-card p-6 cursor-pointer group"
               >
-                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="flex items-start justify-between mb-4">
-                  <div className={`p-2 rounded-sm ${tc}`}>
+                  <div className={`p-2.5 rounded-xl ${tc}`}>
                     <Icon className="h-5 w-5" />
                   </div>
                   <span className="font-body text-xs text-muted-foreground">{action.time}</span>
@@ -100,7 +99,7 @@ const RecentActions = () => {
                   {action.title}
                 </h3>
                 <p className="font-body text-sm text-muted-foreground">{action.desc}</p>
-                <span className={`inline-block mt-4 px-3 py-1 rounded-sm text-xs font-heading tracking-wider ${tc}`}>
+                <span className={`inline-block mt-4 px-3 py-1 rounded-full text-xs font-heading font-semibold ${tc}`}>
                   {action.tag}
                 </span>
               </motion.div>

@@ -48,7 +48,7 @@ const Dashboard = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="font-display text-primary animate-pulse-glow text-2xl">LOADING...</div>
+        <div className="font-display text-primary animate-pulse text-2xl">Loading...</div>
       </div>
     );
   }
@@ -56,21 +56,23 @@ const Dashboard = () => {
   const displayName = user?.user_metadata?.display_name || user?.email?.split("@")[0] || "Student";
 
   return (
-    <div className="min-h-screen bg-background scanline">
-      <div className="border-b border-border/30 bg-card/50 backdrop-blur-xl">
+    <div className="min-h-screen bg-background">
+      <div className="border-b border-border bg-card shadow-sm">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <GraduationCap className="h-6 w-6 text-primary" />
-            <span className="font-display text-lg font-bold tracking-widest text-foreground">
-              MANVI<span className="text-primary"> SMART</span>
+            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+              <GraduationCap className="h-6 w-6 text-primary-foreground" />
+            </div>
+            <span className="font-display text-lg font-bold text-foreground">
+              Manvi <span className="text-primary">Smart</span>
             </span>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                <User className="h-4 w-4 text-primary" />
+              <div className="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center">
+                <User className="h-4 w-4 text-secondary" />
               </div>
-              <span className="font-heading text-sm text-foreground hidden sm:block">{displayName}</span>
+              <span className="font-heading text-sm text-foreground font-semibold hidden sm:block">{displayName}</span>
             </div>
             <button onClick={handleLogout} className="p-2 text-muted-foreground hover:text-destructive transition-colors">
               <LogOut className="h-5 w-5" />
@@ -82,7 +84,7 @@ const Dashboard = () => {
       <div className="container mx-auto px-6 py-8">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
           <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground">
-            Welcome back, <span className="text-primary text-glow-cyan">{displayName}</span>
+            Welcome back, <span className="text-primary">{displayName}</span> 👋
           </h1>
           <p className="font-body text-muted-foreground mt-2">Here's what's happening at Manvi School today.</p>
         </motion.div>
@@ -90,6 +92,8 @@ const Dashboard = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {quickStats.map((stat, i) => {
             const Icon = stat.icon;
+            const colorClass = stat.color === "primary" ? "text-primary bg-primary/10" :
+              stat.color === "secondary" ? "text-secondary bg-secondary/10" : "text-accent bg-accent/10";
             return (
               <motion.div
                 key={stat.label}
@@ -97,12 +101,11 @@ const Dashboard = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 whileHover={{ scale: 1.03, y: -3 }}
-                className="bg-gradient-card cyber-border rounded-sm p-6 group hover:border-primary/50 transition-all"
+                className="school-card p-6 group"
               >
-                <Icon className={`h-6 w-6 mb-3 ${
-                  stat.color === "primary" ? "text-primary" :
-                  stat.color === "secondary" ? "text-secondary" : "text-accent"
-                }`} />
+                <div className={`w-10 h-10 rounded-xl ${colorClass} flex items-center justify-center mb-3`}>
+                  <Icon className="h-5 w-5" />
+                </div>
                 <div className="font-display text-3xl font-bold text-foreground">{stat.value}</div>
                 <div className="font-body text-xs text-muted-foreground mt-1">{stat.label}</div>
               </motion.div>
@@ -114,11 +117,13 @@ const Dashboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-gradient-card cyber-border rounded-sm p-6"
+          className="school-card p-6"
         >
           <div className="flex items-center gap-2 mb-4">
-            <Bell className="h-5 w-5 text-secondary" />
-            <h2 className="font-heading text-xl font-bold text-foreground tracking-wider">NOTIFICATIONS</h2>
+            <div className="w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center">
+              <Bell className="h-4 w-4 text-secondary" />
+            </div>
+            <h2 className="font-heading text-xl font-bold text-foreground">Notifications</h2>
           </div>
           <div className="space-y-3">
             {notifications.map((notif, i) => (
@@ -128,7 +133,7 @@ const Dashboard = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4 + i * 0.1 }}
                 whileHover={{ x: 5 }}
-                className="flex items-start justify-between p-3 bg-muted/30 rounded-sm hover:bg-muted/50 transition-all cursor-pointer"
+                className="flex items-start justify-between p-3 bg-muted/50 rounded-xl hover:bg-muted/80 transition-all cursor-pointer"
               >
                 <p className="font-body text-sm text-foreground">{notif.text}</p>
                 <span className="font-body text-xs text-muted-foreground whitespace-nowrap ml-4">{notif.time}</span>

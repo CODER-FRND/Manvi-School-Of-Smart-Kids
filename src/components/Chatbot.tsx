@@ -10,7 +10,7 @@ const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/school-chatb
 const Chatbot = () => {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
-    { role: "assistant", content: "Hello! 👋 I'm **Manvi AI**, your school assistant. Ask me about admissions, classes (Play Group to 8th), events, or anything about Manvi School of Smart Kids!" },
+    { role: "assistant", content: "Hello! 👋 I'm **Manvi AI**, your school assistant. Ask me about admissions, classes (Play Group to 8th), events, or anything about Manvi School of Smart Kids, Jaipur!" },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -94,7 +94,7 @@ const Chatbot = () => {
     <>
       <motion.button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 z-50 p-4 rounded-full bg-gradient-cyber box-glow-cyan text-primary-foreground shadow-2xl"
+        className="fixed bottom-6 right-6 z-50 p-4 rounded-full bg-primary text-primary-foreground shadow-lg"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -107,15 +107,17 @@ const Chatbot = () => {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-6 z-50 w-[380px] max-w-[calc(100vw-3rem)] h-[500px] flex flex-col bg-card cyber-border rounded-sm overflow-hidden shadow-2xl"
+            className="fixed bottom-24 right-6 z-50 w-[380px] max-w-[calc(100vw-3rem)] h-[500px] flex flex-col bg-card border-2 border-border rounded-2xl overflow-hidden shadow-xl"
           >
-            <div className="flex items-center gap-3 p-4 border-b border-border/50 bg-muted/30">
+            <div className="flex items-center gap-3 p-4 border-b border-border bg-primary/5">
               <div className="relative">
-                <Bot className="h-8 w-8 text-primary" />
-                <span className="absolute -top-1 -right-1 w-3 h-3 bg-neon-green rounded-full animate-pulse-glow" />
+                <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                  <Bot className="h-5 w-5 text-primary-foreground" />
+                </div>
+                <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-accent rounded-full border-2 border-card" />
               </div>
               <div>
-                <h3 className="font-heading text-lg font-bold text-foreground">MANVI AI</h3>
+                <h3 className="font-heading text-lg font-bold text-foreground">Manvi AI 🤖</h3>
                 <p className="text-xs text-muted-foreground font-body">Your School Assistant</p>
               </div>
             </div>
@@ -133,12 +135,12 @@ const Chatbot = () => {
                   }`}>
                     {msg.role === "user" ? <User className="h-4 w-4 text-secondary" /> : <Bot className="h-4 w-4 text-primary" />}
                   </div>
-                  <div className={`max-w-[75%] p-3 rounded-sm text-sm font-body ${
+                  <div className={`max-w-[75%] p-3 rounded-2xl text-sm font-body ${
                     msg.role === "user"
-                      ? "bg-secondary/10 cyber-border-magenta text-foreground"
-                      : "bg-muted/50 cyber-border text-foreground"
+                      ? "bg-secondary text-secondary-foreground"
+                      : "bg-muted text-foreground"
                   }`}>
-                    <div className="prose prose-invert prose-sm max-w-none [&_p]:m-0 [&_ul]:m-0 [&_li]:m-0">
+                    <div className="prose prose-sm max-w-none [&_p]:m-0 [&_ul]:m-0 [&_li]:m-0">
                       <ReactMarkdown>{msg.content}</ReactMarkdown>
                     </div>
                   </div>
@@ -149,14 +151,14 @@ const Chatbot = () => {
                   <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center">
                     <Bot className="h-4 w-4 text-primary" />
                   </div>
-                  <div className="p-3 bg-muted/50 cyber-border rounded-sm">
+                  <div className="p-3 bg-muted rounded-2xl">
                     <Loader2 className="h-4 w-4 text-primary animate-spin" />
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="p-3 border-t border-border/50 bg-muted/20">
+            <div className="p-3 border-t border-border bg-muted/30">
               <div className="flex gap-2">
                 <input
                   ref={inputRef}
@@ -165,12 +167,12 @@ const Chatbot = () => {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && send()}
                   placeholder="Ask Manvi AI anything..."
-                  className="flex-1 bg-muted/50 cyber-border rounded-sm px-4 py-2 text-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/60"
+                  className="flex-1 bg-card border-2 border-border rounded-full px-4 py-2 text-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                 />
                 <button
                   onClick={send}
                   disabled={loading || !input.trim()}
-                  className="p-2 bg-gradient-cyber rounded-sm text-primary-foreground disabled:opacity-50 transition-opacity"
+                  className="p-2.5 bg-primary rounded-full text-primary-foreground disabled:opacity-50 transition-opacity"
                 >
                   <Send className="h-4 w-4" />
                 </button>

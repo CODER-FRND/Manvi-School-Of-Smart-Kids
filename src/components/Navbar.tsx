@@ -28,16 +28,21 @@ const Navbar = () => {
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-background/90 backdrop-blur-xl cyber-border border-t-0 border-l-0 border-r-0"
+          ? "bg-card/95 backdrop-blur-xl shadow-md border-b border-border"
           : "bg-transparent"
       }`}
     >
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         <Link to="/" className="flex items-center gap-2 group">
-          <GraduationCap className="h-8 w-8 text-primary transition-all group-hover:drop-shadow-[0_0_12px_hsl(185_100%_47%/0.8)]" />
-          <span className="font-display text-lg font-bold tracking-widest text-foreground">
-            MANVI<span className="text-primary"> SMART</span>
-          </span>
+          <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+            <GraduationCap className="h-6 w-6 text-primary-foreground" />
+          </div>
+          <div className="flex flex-col">
+            <span className="font-display text-lg font-bold text-foreground leading-tight">
+              Manvi <span className="text-primary">Smart</span>
+            </span>
+            <span className="text-[10px] font-body text-muted-foreground leading-tight">School of Smart Kids</span>
+          </div>
         </Link>
 
         {/* Desktop */}
@@ -46,17 +51,17 @@ const Navbar = () => {
             <Link
               key={item.label}
               to={item.path}
-              className="font-heading text-sm tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors relative group"
+              className="font-heading text-sm font-semibold text-muted-foreground hover:text-primary transition-colors relative group"
             >
               {item.label}
-              <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all group-hover:w-full" />
+              <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary rounded-full transition-all group-hover:w-full" />
             </Link>
           ))}
           <Link
             to="/login"
-            className="font-heading text-sm tracking-wider uppercase px-6 py-2 bg-primary/10 cyber-border text-primary hover:bg-primary/20 transition-all rounded-sm"
+            className="font-heading text-sm font-bold px-6 py-2.5 bg-primary text-primary-foreground rounded-full hover:opacity-90 transition-all shadow-md"
           >
-            Login
+            Student Login
           </Link>
         </div>
 
@@ -76,7 +81,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-card/95 backdrop-blur-xl cyber-border border-t-0 border-l-0 border-r-0"
+            className="md:hidden bg-card/98 backdrop-blur-xl border-b border-border"
           >
             <div className="flex flex-col gap-4 p-6">
               {navItems.map((item) => (
@@ -84,7 +89,7 @@ const Navbar = () => {
                   key={item.label}
                   to={item.path}
                   onClick={() => setMobileOpen(false)}
-                  className="font-heading text-lg tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors"
+                  className="font-heading text-lg font-semibold text-muted-foreground hover:text-primary transition-colors"
                 >
                   {item.label}
                 </Link>
@@ -92,9 +97,9 @@ const Navbar = () => {
               <Link
                 to="/login"
                 onClick={() => setMobileOpen(false)}
-                className="font-heading text-lg tracking-wider uppercase text-primary"
+                className="font-heading text-lg font-bold text-primary"
               >
-                Login
+                Student Login
               </Link>
             </div>
           </motion.div>

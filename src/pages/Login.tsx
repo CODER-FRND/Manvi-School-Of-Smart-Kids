@@ -25,13 +25,13 @@ const Login = () => {
           email,
           password,
           options: {
-            emailRedirectTo: window.location.origin,
+            emailRedirectTo: `${window.location.origin}/verify-email`,
             data: { display_name: name },
           },
         });
         if (error) throw error;
         toast({
-          title: "Account created!",
+          title: "Account created! 🎉",
           description: "Check your email to verify your account.",
         });
       } else {
@@ -51,26 +51,13 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden scanline">
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
-      {/* Grid texture */}
-      <div className="absolute inset-0 opacity-5" style={{
-        backgroundImage: `linear-gradient(hsl(var(--primary) / 0.4) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary) / 0.4) 1px, transparent 1px)`,
-        backgroundSize: '40px 40px',
-      }} />
-      {[...Array(15)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-px bg-primary/20"
-          style={{
-            left: `${5 + i * 7}%`,
-            height: `${20 + Math.random() * 40}%`,
-            top: `${Math.random() * 60}%`,
-          }}
-          animate={{ opacity: [0, 0.5, 0], y: [0, 100] }}
-          transition={{ duration: 3 + Math.random() * 3, repeat: Infinity, delay: Math.random() * 3 }}
-        />
-      ))}
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
+      
+      {/* Decorative shapes */}
+      <div className="absolute top-20 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-10 w-40 h-40 bg-secondary/10 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-accent/10 rounded-full blur-2xl" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -84,12 +71,14 @@ const Login = () => {
           <ArrowLeft className="h-4 w-4" /> Back to Home
         </Link>
 
-        <div className="bg-gradient-card cyber-border rounded-sm p-8">
+        <div className="bg-card border-2 border-border rounded-2xl p-8 shadow-lg">
           <div className="flex items-center gap-3 mb-8">
-            <GraduationCap className="h-8 w-8 text-primary" />
+            <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
+              <GraduationCap className="h-7 w-7 text-primary-foreground" />
+            </div>
             <div>
-              <h1 className="font-display text-xl font-bold tracking-wider text-foreground">
-                {isSignUp ? "JOIN MANVI" : "STUDENT PORTAL"}
+              <h1 className="font-display text-xl font-bold text-foreground">
+                {isSignUp ? "Join Manvi 🌟" : "Student Portal 📚"}
               </h1>
               <p className="font-body text-xs text-muted-foreground">
                 {isSignUp ? "Create your student account" : "Manvi School of Smart Kids"}
@@ -100,7 +89,7 @@ const Login = () => {
           <form onSubmit={handleSubmit} className="space-y-5">
             {isSignUp && (
               <div>
-                <label className="font-heading text-xs tracking-wider text-muted-foreground uppercase block mb-2">
+                <label className="font-heading text-sm font-semibold text-foreground block mb-2">
                   Full Name
                 </label>
                 <input
@@ -108,14 +97,14 @@ const Login = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  className="w-full bg-muted/50 cyber-border rounded-sm px-4 py-3 text-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/60 transition-colors"
+                  className="w-full bg-muted/50 border-2 border-border rounded-xl px-4 py-3 text-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                   placeholder="Enter your name"
                 />
               </div>
             )}
 
             <div>
-              <label className="font-heading text-xs tracking-wider text-muted-foreground uppercase block mb-2">
+              <label className="font-heading text-sm font-semibold text-foreground block mb-2">
                 Email Address
               </label>
               <input
@@ -123,13 +112,13 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full bg-muted/50 cyber-border rounded-sm px-4 py-3 text-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/60 transition-colors"
+                className="w-full bg-muted/50 border-2 border-border rounded-xl px-4 py-3 text-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                 placeholder="student@manvischool.com"
               />
             </div>
 
             <div>
-              <label className="font-heading text-xs tracking-wider text-muted-foreground uppercase block mb-2">
+              <label className="font-heading text-sm font-semibold text-foreground block mb-2">
                 Password
               </label>
               <div className="relative">
@@ -139,7 +128,7 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   minLength={6}
-                  className="w-full bg-muted/50 cyber-border rounded-sm px-4 py-3 pr-12 text-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/60 transition-colors"
+                  className="w-full bg-muted/50 border-2 border-border rounded-xl px-4 py-3 pr-12 text-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                   placeholder="••••••••"
                 />
                 <button
@@ -155,14 +144,14 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full font-heading text-sm tracking-wider uppercase py-3 bg-gradient-cyber text-primary-foreground hover:opacity-90 transition-all rounded-sm box-glow-cyan font-semibold flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full font-heading text-sm font-bold py-3 bg-primary text-primary-foreground hover:opacity-90 transition-all rounded-full shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {loading && <Loader2 className="h-4 w-4 animate-spin" />}
-              {isSignUp ? "Create Account" : "Sign In"}
+              {isSignUp ? "Create Account ✨" : "Sign In"}
             </button>
           </form>
 
-          <div className="neon-line mt-6 mb-4" />
+          <div className="h-px bg-border mt-6 mb-4" />
 
           <p className="text-center font-body text-sm text-muted-foreground">
             {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}

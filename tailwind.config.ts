@@ -14,9 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['Orbitron', 'sans-serif'],
-        heading: ['Rajdhani', 'sans-serif'],
-        body: ['Space Grotesk', 'sans-serif'],
+        display: ['Fredoka', 'sans-serif'],
+        heading: ['Nunito', 'sans-serif'],
+        body: ['Quicksand', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -52,14 +52,13 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        neon: {
-          cyan: "hsl(var(--neon-cyan))",
-          magenta: "hsl(var(--neon-magenta))",
-          purple: "hsl(var(--neon-purple))",
-          green: "hsl(var(--neon-green))",
-        },
-        netflix: {
-          red: "hsl(var(--netflix-red))",
+        school: {
+          orange: "hsl(var(--school-orange))",
+          blue: "hsl(var(--school-blue))",
+          green: "hsl(var(--school-green))",
+          yellow: "hsl(var(--school-yellow))",
+          purple: "hsl(var(--school-purple))",
+          pink: "hsl(var(--school-pink))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -91,12 +90,12 @@ export default {
           "50%": { transform: "translateY(-10px)" },
         },
         "pulse-glow": {
-          "0%, 100%": { opacity: "0.4" },
+          "0%, 100%": { opacity: "0.6" },
           "50%": { opacity: "1" },
         },
-        "slide-up": {
-          from: { transform: "translateY(20px)", opacity: "0" },
-          to: { transform: "translateY(0)", opacity: "1" },
+        "bounce-soft": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-5px)" },
         },
       },
       animation: {
@@ -104,7 +103,7 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "float": "float 3s ease-in-out infinite",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
-        "slide-up": "slide-up 0.5s ease-out",
+        "bounce-soft": "bounce-soft 2s ease-in-out infinite",
       },
     },
   },

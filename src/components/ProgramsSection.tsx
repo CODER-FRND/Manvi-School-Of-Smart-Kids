@@ -11,19 +11,14 @@ const programs = [
 ];
 
 const colorMap = {
-  primary: "text-primary cyber-border hover:box-glow-cyan",
-  secondary: "text-secondary cyber-border-magenta hover:box-glow-magenta",
-  accent: "text-accent cyber-border hover:box-glow-purple",
+  primary: { bg: "bg-primary/10", text: "text-primary", border: "border-primary/20", hoverBorder: "hover:border-primary/50" },
+  secondary: { bg: "bg-secondary/10", text: "text-secondary", border: "border-secondary/20", hoverBorder: "hover:border-secondary/50" },
+  accent: { bg: "bg-accent/10", text: "text-accent", border: "border-accent/20", hoverBorder: "hover:border-accent/50" },
 };
 
 const ProgramsSection = () => {
   return (
     <section id="programs" className="py-24 relative">
-      {/* Texture overlay */}
-      <div className="absolute inset-0 opacity-5" style={{
-        backgroundImage: `radial-gradient(circle at 25% 25%, hsl(var(--primary)) 1px, transparent 1px), radial-gradient(circle at 75% 75%, hsl(var(--secondary)) 1px, transparent 1px)`,
-        backgroundSize: '40px 40px',
-      }} />
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -31,9 +26,9 @@ const ProgramsSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="font-display text-sm tracking-[0.3em] text-primary uppercase">Classes: Play Group to 8th</span>
+          <span className="font-display text-sm tracking-wider text-primary font-semibold">Classes: Play Group to 8th</span>
           <h2 className="font-display text-4xl md:text-5xl font-bold mt-4 text-foreground">
-            OUR <span className="text-primary text-glow-cyan">PROGRAMS</span>
+            Our <span className="text-primary">Programs</span> 📚
           </h2>
           <div className="neon-line w-32 mx-auto mt-6" />
         </motion.div>
@@ -50,15 +45,13 @@ const ProgramsSection = () => {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
                 whileHover={{ scale: 1.03, y: -5 }}
-                className={`bg-gradient-card p-8 rounded-sm ${colors} cursor-pointer transition-all group relative overflow-hidden`}
+                className={`school-card p-8 cursor-pointer group border-2 ${colors.border} ${colors.hoverBorder}`}
               >
-                {/* Hover glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative z-10">
-                  <Icon className="h-10 w-10 mb-4 transition-transform group-hover:scale-110 group-hover:rotate-3" />
-                  <h3 className="font-heading text-2xl font-bold text-foreground mb-2">{program.title}</h3>
-                  <p className="font-body text-muted-foreground text-sm">{program.desc}</p>
+                <div className={`w-14 h-14 rounded-2xl ${colors.bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                  <Icon className={`h-7 w-7 ${colors.text}`} />
                 </div>
+                <h3 className="font-heading text-2xl font-bold text-foreground mb-2">{program.title}</h3>
+                <p className="font-body text-muted-foreground text-sm">{program.desc}</p>
               </motion.div>
             );
           })}

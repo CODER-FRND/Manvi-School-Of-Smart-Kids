@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { GraduationCap, Users, ClipboardCheck, BookOpen, DollarSign, FileText, MessageSquare, LogOut, Home, Settings, User } from "lucide-react";
+import { GraduationCap, Users, ClipboardCheck, BookOpen, DollarSign, FileText, MessageSquare, LogOut, Home, Settings, User, UserPlus } from "lucide-react";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -16,6 +16,7 @@ const sidebarItems = [
   { icon: FileText, label: "Homework", path: "/admin/homework" },
   { icon: MessageSquare, label: "Remarks", path: "/admin/remarks" },
   { icon: Settings, label: "Classes", path: "/admin/classes" },
+  { icon: UserPlus, label: "Staff", path: "/admin/staff" },
 ];
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {

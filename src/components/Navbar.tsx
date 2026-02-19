@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, GraduationCap } from "lucide-react";
+import { Menu, X, GraduationCap, Shield } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const navItems = [
   { label: "Home", path: "/" },
@@ -14,7 +15,31 @@ const navItems = [
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const checkRole = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        setIsLoggedIn(true);
+        const { data: roles } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", session.user.id);
+        const role = roles?.[0]?.role;
+        setIsAdmin(role === "admin" || role === "teacher");
+      }
+    };
+    checkRole();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session);
+      if (!session) setIsAdmin(false);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -57,11 +82,19 @@ const Navbar = () => {
               <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary rounded-full transition-all group-hover:w-full" />
             </Link>
           ))}
+          {isAdmin && (
+            <Link
+              to="/admin"
+              className="font-heading text-sm font-semibold text-secondary hover:text-secondary/80 transition-colors flex items-center gap-1"
+            >
+              <Shield className="h-4 w-4" /> Admin Panel
+            </Link>
+          )}
           <Link
-            to="/login"
+            to={isLoggedIn ? "/dashboard" : "/login"}
             className="font-heading text-sm font-bold px-6 py-2.5 bg-primary text-primary-foreground rounded-full hover:opacity-90 transition-all shadow-md"
           >
-            Student Login
+            {isLoggedIn ? "Dashboard" : "Student Login"}
           </Link>
         </div>
 
@@ -94,12 +127,21 @@ const Navbar = () => {
                   {item.label}
                 </Link>
               ))}
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  onClick={() => setMobileOpen(false)}
+                  className="font-heading text-lg font-semibold text-secondary flex items-center gap-2"
+                >
+                  <Shield className="h-5 w-5" /> Admin Panel
+                </Link>
+              )}
               <Link
-                to="/login"
+                to={isLoggedIn ? "/dashboard" : "/login"}
                 onClick={() => setMobileOpen(false)}
                 className="font-heading text-lg font-bold text-primary"
               >
-                Student Login
+                {isLoggedIn ? "Dashboard" : "Student Login"}
               </Link>
             </div>
           </motion.div>

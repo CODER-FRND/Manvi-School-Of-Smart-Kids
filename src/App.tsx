@@ -16,6 +16,7 @@ import ManageMarks from "./pages/admin/ManageMarks";
 import ManageFees from "./pages/admin/ManageFees";
 import ManageHomework from "./pages/admin/ManageHomework";
 import ManageRemarks from "./pages/admin/ManageRemarks";
+import ManageStaff from "./pages/admin/ManageStaff";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/admin/fees" element={<ManageFees />} />
           <Route path="/admin/homework" element={<ManageHomework />} />
           <Route path="/admin/remarks" element={<ManageRemarks />} />
+          <Route path="/admin/staff" element={<ManageStaff />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

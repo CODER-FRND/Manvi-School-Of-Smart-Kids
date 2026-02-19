@@ -35,9 +35,21 @@ const Login = () => {
           description: "Check your email to verify your account.",
         });
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        navigate("/dashboard");
+        
+        // Check user role for redirect
+        const { data: roles } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", data.user.id);
+        
+        const userRole = roles?.[0]?.role;
+        if (userRole === "admin" || userRole === "teacher") {
+          navigate("/admin");
+        } else {
+          navigate("/dashboard");
+        }
       }
     } catch (err: any) {
       toast({

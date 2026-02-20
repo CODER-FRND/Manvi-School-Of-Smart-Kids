@@ -7,16 +7,16 @@ interface AdminLayoutProps {
   children: React.ReactNode;
 }
 
-const sidebarItems = [
-  { icon: Home, label: "Overview", path: "/admin" },
-  { icon: Users, label: "Students", path: "/admin/students" },
-  { icon: ClipboardCheck, label: "Attendance", path: "/admin/attendance" },
-  { icon: BookOpen, label: "Marks", path: "/admin/marks" },
-  { icon: DollarSign, label: "Fees", path: "/admin/fees" },
-  { icon: FileText, label: "Homework", path: "/admin/homework" },
-  { icon: MessageSquare, label: "Remarks", path: "/admin/remarks" },
-  { icon: Settings, label: "Classes", path: "/admin/classes" },
-  { icon: UserPlus, label: "Staff", path: "/admin/staff" },
+const allSidebarItems = [
+  { icon: Home, label: "Overview", path: "/admin", roles: ["admin", "teacher"] },
+  { icon: Users, label: "Students", path: "/admin/students", roles: ["admin"] },
+  { icon: ClipboardCheck, label: "Attendance", path: "/admin/attendance", roles: ["admin", "teacher"] },
+  { icon: BookOpen, label: "Marks", path: "/admin/marks", roles: ["admin", "teacher"] },
+  { icon: DollarSign, label: "Fees", path: "/admin/fees", roles: ["admin"] },
+  { icon: FileText, label: "Homework", path: "/admin/homework", roles: ["admin", "teacher"] },
+  { icon: MessageSquare, label: "Remarks", path: "/admin/remarks", roles: ["admin", "teacher"] },
+  { icon: Settings, label: "Classes", path: "/admin/classes", roles: ["admin"] },
+  { icon: UserPlus, label: "Staff", path: "/admin/staff", roles: ["admin"] },
 ];
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
@@ -87,7 +87,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
         </div>
 
         <nav className="flex-1 p-3 space-y-1">
-          {sidebarItems.map((item) => {
+          {allSidebarItems.filter(item => item.roles.includes(role || "")).map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
             return (

@@ -8,7 +8,6 @@ const ManageMarks = () => {
   const [classes, setClasses] = useState<any[]>([]);
   const [subjects, setSubjects] = useState<any[]>([]);
   const [students, setStudents] = useState<any[]>([]);
-  const [marks, setMarks] = useState<any[]>([]);
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedSubject, setSelectedSubject] = useState("");
   const [examType, setExamType] = useState("Unit Test 1");
@@ -21,6 +20,12 @@ const ManageMarks = () => {
   useEffect(() => {
     supabase.from("classes").select("*").order("name").then(({ data }) => setClasses(data || []));
   }, []);
+
+  const fetchSubjects = async () => {
+    if (!selectedClass) return;
+    const { data } = await supabase.from("subjects").select("*").eq("class_id", selectedClass).order("name");
+    setSubjects(data || []);
+  };
 
   useEffect(() => {
     if (!selectedClass) return;
@@ -38,9 +43,19 @@ const ManageMarks = () => {
     const { error } = await supabase.from("subjects").insert({ name: newSubject.trim(), class_id: selectedClass });
     if (!error) {
       setNewSubject("");
-      const { data } = await supabase.from("subjects").select("*").eq("class_id", selectedClass).order("name");
-      setSubjects(data || []);
+      await fetchSubjects();
       toast({ title: "Subject added!" });
+    }
+  };
+
+  const deleteSubject = async (subjectId: string) => {
+    const { error } = await supabase.from("subjects").delete().eq("id", subjectId);
+    if (error) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } else {
+      if (selectedSubject === subjectId) setSelectedSubject("");
+      await fetchSubjects();
+      toast({ title: "Subject removed" });
     }
   };
 
@@ -119,12 +134,26 @@ const ManageMarks = () => {
           )}
         </div>
         {selectedClass && (
-          <div className="flex gap-2 items-end mt-4">
-            <input type="text" value={newSubject} onChange={(e) => setNewSubject(e.target.value)}
-              placeholder="Add new subject..." className="bg-muted/50 border-2 border-border rounded-xl px-3 py-2 text-sm font-body focus:outline-none focus:border-primary" />
-            <button onClick={addSubject} className="px-4 py-2 bg-secondary text-secondary-foreground rounded-full text-sm font-heading font-bold">
-              <Plus className="h-4 w-4" />
-            </button>
+          <div className="mt-4">
+            <div className="flex gap-2 items-end mb-3">
+              <input type="text" value={newSubject} onChange={(e) => setNewSubject(e.target.value)}
+                placeholder="Add new subject..." className="bg-muted/50 border-2 border-border rounded-xl px-3 py-2 text-sm font-body focus:outline-none focus:border-primary" />
+              <button onClick={addSubject} className="px-4 py-2 bg-secondary text-secondary-foreground rounded-full text-sm font-heading font-bold">
+                <Plus className="h-4 w-4" />
+              </button>
+            </div>
+            {subjects.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {subjects.map(s => (
+                  <span key={s.id} className="flex items-center gap-1 px-3 py-1 bg-muted rounded-full text-xs font-heading font-semibold text-foreground">
+                    {s.name}
+                    <button onClick={() => deleteSubject(s.id)} className="text-muted-foreground hover:text-destructive transition-colors ml-1">
+                      <Trash2 className="h-3 w-3" />
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>

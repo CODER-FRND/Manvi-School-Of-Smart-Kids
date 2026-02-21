@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
 const Login = () => {
-  const [loginMode, setLoginMode] = useState<"staff" | "parent">("staff");
+  const [loginMode, setLoginMode] = useState<"staff" | "parent">("parent");
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

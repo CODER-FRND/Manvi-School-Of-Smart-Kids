@@ -27,18 +27,11 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
   const location = useLocation();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        navigate("/login");
-        return;
-      }
-      setUser(session.user);
-
+    const fetchRole = async (userId: string) => {
       const { data: roles } = await supabase
         .from("user_roles")
         .select("role")
-        .eq("user_id", session.user.id);
+        .eq("user_id", userId);
 
       if (roles && roles.length > 0) {
         const userRole = roles[0].role;
@@ -52,7 +45,17 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
       setLoading(false);
     };
 
-    checkAuth();
+    // Listen to auth state changes (handles reload properly)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) {
+        navigate("/login");
+        return;
+      }
+      setUser(session.user);
+      fetchRole(session.user.id);
+    });
+
+    return () => subscription.unsubscribe();
   }, [navigate]);
 
   const handleLogout = async () => {
@@ -72,7 +75,6 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
 
   return (
     <div className="min-h-screen bg-background flex">
-      {/* Sidebar */}
       <aside className="w-64 bg-card border-r border-border min-h-screen fixed left-0 top-0 z-40 flex flex-col">
         <div className="p-4 border-b border-border">
           <div className="flex items-center gap-2">
@@ -124,7 +126,6 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
         </div>
       </aside>
 
-      {/* Main content */}
       <main className="flex-1 ml-64 p-6">
         {children}
       </main>

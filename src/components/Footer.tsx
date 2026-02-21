@@ -19,7 +19,15 @@ const Footer = () => (
           </p>
           <div className="flex items-center gap-2 mt-4 opacity-70">
             <MapPin className="h-4 w-4 text-primary" />
-            <span className="font-body text-xs">Jaipur, Rajasthan</span>
+            <span className="font-body text-xs">46-A Hari Nagar, near C.B.I colony, Jagatpura, Jaipur</span>
+          </div>
+          <div className="flex items-center gap-2 mt-2 opacity-70">
+            <Phone className="h-4 w-4 text-primary" />
+            <span className="font-body text-xs">6376002514 / 9166231062</span>
+          </div>
+          <div className="flex items-center gap-2 mt-2 opacity-70">
+            <Mail className="h-4 w-4 text-primary" />
+            <span className="font-body text-xs">manvischoolofsmartkids@gmail.com</span>
           </div>
         </div>
         {[
@@ -37,9 +45,9 @@ const Footer = () => (
           ]},
           { title: "Contact", links: [
             { label: "Admissions", to: "/login" },
-            { label: "Phone: Coming Soon", to: "#" },
-            { label: "Email: Coming Soon", to: "#" },
-            { label: "Jaipur, Rajasthan", to: "#" },
+            { label: "📞 6376002514 / 9166231062", to: "tel:6376002514" },
+            { label: "✉️ manvischoolofsmartkids@gmail.com", to: "mailto:manvischoolofsmartkids@gmail.com" },
+            { label: "📍 46-A Hari Nagar, near C.B.I colony, Jagatpura, Jaipur", to: "#" },
           ]},
         ].map((col) => (
           <div key={col.title}>
